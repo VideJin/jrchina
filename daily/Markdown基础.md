@@ -74,14 +74,14 @@
 2. 代码区块
 	用4个空格或者一个制表符（Tab键）
 	也可以用三个反引号包起来，并指定一种语言
-	```java
+
+```java
 	public class Test{
 		public static void main(String[] args){
 			System.out.println("你好！");
 		}
-	}
-	```
-	
+	}	
+```
 
 ## 链接
 
