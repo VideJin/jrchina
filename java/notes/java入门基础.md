@@ -201,14 +201,14 @@
 >>+ 所有变量、方法、类名：见上文。
 >>+ 类成员变量：首字母小写和驼峰原则：mouthSalary  
 
-## 数据类型（data type）
+## 六、数据类型（data type）
 
 >java强类型语言，每个变量必须声明数据类型。Java的数据类型分为两大类：基本数据类型（primitive data type）和引用数据类型（reference data type）。
 
 1. Java中定义了3类8种基本数据类型
    【1】数值型：byte（1个字节）、short（2）、int（4）、long（8）、float（4）、double（8）
    【2】字符型：char（2）
-   【3】布尔型：boolean（）
+   【3】布尔型：boolean（一般是4，在数组中是1）
    
    ![数据类型](java入门基础.assets/数据类型.png)
    
@@ -358,3 +358,237 @@
 1. 概述
    + boolean类型有两个常量值，true和false，在内存中占1个字节或4个字节。不可以使用0或非0的整数替代true和false，这点和C语言不同。
    + boolean类型用来判断逻辑条件，一般用于程序流程控制。
+   + boolean类型演示
+```java
+	boolean flag;
+	flag = true; //或者flag = false;
+	if(flag){
+		//true分支
+	}else{
+		//false分支
+	}
+	/*
+	less is more !
+	不要这么写：if (flag == true)，只有新手这么写，关键也容易写错成if (flag = true)，这样就变成赋值flag为true而不是进行比较。
+	故应写成if(flag)或者if(!flag)
+	*/
+```
+例子：
+```java
+	public class TestBoolean{
+		public static void main(String[] args){
+		boolean b1 = true;
+		boolean b2 = false;
+		
+		if(b1){
+			System.out.println("b1是true");
+		}else{
+			System.out.println("b1是false");
+		}
+		}
+	}
+```
+>boolean类型单独使用时4个字节，在数组中是确定的1个字节。  
+
+## 七、运算符（operator）
+
+1. 定义：计算机的最基本用途之一就是执行数学运算
+2. 分类
+
+|类型|符号|
+|:----:|:----:|
+|算术运算符：二元运算符|+，\-，*，/，%|
+|算数运算符：一元运算符|++，--|
+|赋值运算符|=|
+|扩展运算符|+=，-=，\*=，/=|
+|关系运算符|>，<，>=，<=，==，!= instanceof|
+|逻辑运算符|&&，||，！，^|
+|位运算符|&，|，^，~，>>，<<，>>>|
+|条件运算符|?:|
+|字符串连接符|+|
+
+### 1. 算术运算符
+
+1. 二元运算符
+
+   + 二元运算符指的是需要两个操作数才能完成运算的运算符。其中%是取模运算符，即求余数操作。
+      + 整数运算：
+         + 如果两个操作数有一个为long，则结果也是long
+         + 如果没有long时，结果为int。即使操作数全是short、byte，结果也是int。
+      + 浮点运算：
+         + 如果两个操作数有一个为double，则结果为double。
+         + 只有两个操作数都是float，则结果才为float。
+      + 取模运算
+         + 其操作数可以为浮点数，一般使用整数，结果是"余数"，"余数"符号和左边操作数相同，如：7%3=1，-7%3=-1，7%-3=1。
+
+例子：
+```java
+	public class TestOperator{
+		public static void main(String[] args){
+			//算数运算符
+			int a = 3;
+			long b = 4;
+			int c = a + b;//会发生错误：不兼容类型，从long转换到int
+			
+			System.out.println(c);
+			
+			//取余数
+			int e = 10%3;
+			System.out.println(e);
+			
+			//自增、自减
+			int g = 30;
+			g++;//相当于：g = g + 1;
+			g--;//相当于：g = g - 1;
+		}
+	}
+```
+
+2. 一元运算符
+
+   - 定义：算术运算符中++（自增），--（自减）
+   - 只需要一个操作数
+   - 案例
+```java
+	int a =3;
+	int b = a++;//执行完后b=3。++在操作数后，先赋值再自增。
+	
+	a = 3;
+	b = ++a;//执行完后b=4。++在操作数前，a先自增然后再给b赋值。
+```
+
+### 2. 赋值及其扩展赋值运算符
+
+| 运算符|用法举例|等效的表达式|
+|:----:|:----:|:----:|
+|+=|a += b|a = a + b|
+| -= | a -= b| a = a - b|
+|\*=| a \*= b | a = a \* b|
+|/=| a /= b | a = a / b |
+| %= | a %= b| a = a % b|
+
+
+```java
+	public class TestOperator02{
+		public static void main(String[] args){
+			int a = 3;
+			int b = 4;
+			a += 4; //等价于：a = a + b;
+			System.out.println(a);// 7
+			
+			a = 3;
+			a *= b + 3; //等价于：a = a*(b+3);
+			System.out.println(a);//21
+		}
+	}
+```
+
+### 3. 关系运算符
+
+1. 用处
+   + 用来进行比较运算，关系运算的结果是布尔值：true/false：
+
+| 运算符 | 含义| 示例|
+|:----:|:----:|:----:|
+| == | 等于 | a == b |
+| != | 不等于 |a != b|
+| >| 大于|a > b|
+| <|小于|a < b|
+|>=|大于或等于|a >= b|
+|<=|小于或等于|a <= b|
+
+2. 注意事项
+   + =是赋值运算符，而真正的判断两个操作数是否相等的运算符是==。
+   + ==、!=是所有（基本和引用）数据类型都可以使用的。
+   + \>、>=、<、<=仅针对数据类型（byte/short/int/long，float/double以及char）。
+
+```java
+	public class TestOperator03{
+		public static void main(String[] args){
+			
+			//比较运算符
+			int a = 3;
+			int b = 4;
+			boolean c = a > b;
+			System.out.println(c);//false
+			
+			//char也能用于关系运算符的比较
+			char d = 'h';
+			System.out.println((int)d);//104,h对应的数是104（0~65535），char值位于0~65535之间。通过（int）强制转为int，可以看到对应的数字
+			System.out.println(d > 100);//true
+		}
+	}
+```
+
+
+### 4. 逻辑运算符
+
+1. 概述
+   - java中逻辑运算符的操作数和运算结果都是boolean值。
+
+| 运算符|运算符|说明|
+|:----:|:---:|:----:|
+|逻辑与|&（与）|两个操作数为true，结果才为true，否则是false|
+|逻辑或|\|（或）|两个操作数有一个是true，结果就是true|
+|短路与|&&（与）|只要有一个为false，则直接返回false|
+|短路或|\|\|（或）|只要有一个为true，则直接返回true|
+|逻辑非|!（非）|取反：!false为ture，!true为false|
+|逻辑异或|^（异或）|相同为false，不同为true|
+
+2. 注意事项
+   - 短路与 和 短路或 采用短路的方式。从左到右计算，如果只通过运算符左边的操作数就能够确定该逻辑表达式的值，则不会继续计算运算符右边的操作数，提高效率。
+
+```java
+	public class TestOperator04{
+		public static void main(String[] args){
+			
+			//测试逻辑运算符
+			boolean b1 = true;
+			boolean b2 = false;
+			System.out.println(b1 & b2);//结果：false
+			System.out.println(b1 | b2);//true
+			System.out.println(!b2);//true
+			System.out.println(b1 ^ b2);//true
+			
+			//短路与、短路或
+			//int g = 3/0; //0不能作为除数，会报错
+			boolean b3 = 1 > 2 && (4 < 3/0); //结果：false，后边虽然0为除数，但未进行运算。
+			System.out.println(b3);
+		}
+	}
+```
+### 5. 位运算
+
+1. 概述
+   - 定义：进行二进制位的运算
+   - 常见的位运算：
+
+|位运算符|说明|
+|:----:|:----:|
+|~|取反|
+|&|按位与|
+|\||按位或|
+|^|按位异或|
+|<<|左移运算符，左移1位相当于乘2|
+|\>>|右移运算符，右移1位相当于除2取商|
+
+```java
+	public class TestOperator05{
+		public static void main(String[] args){
+			int a = 7;//二进制：00111
+			int b = 8;//二进制：01000
+			
+			System.out.println(a & b);//0
+			System.out.println(a | b);//15
+			System.out.println(a ^ b);//15
+			System.out.println(~b);//-9，补码操作
+			
+			//移位运算
+			int c = 5 << 2;//相当于：5*2*2=20
+			System.out.println(c);//20
+			System.out.println(40 >> 3);//相当于40/2/2/2=5
+			//3*2怎么运算最快，左移一位：3<<1
+		}
+	}
+```
+
